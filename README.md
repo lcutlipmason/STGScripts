@@ -26,7 +26,8 @@ While these scripts work for our situations, use at your own risk as with all mi
  * depends on 2 files, the config.properties and your project list, also has 1 input of what you want the combined GIT repository to be named.
 
 ##Layouts supported:
-servername/reponame/modulename/stdlayout
+###Layout 1: 
+ * SVN: servername/reponame/modulename/stdlayout
 ```
 RepoA
    ProjectA
@@ -38,6 +39,21 @@ RepoA
       branches
       tags
 ```
+ * GIT: /reponame/(module1/2/3)
+```
+RepoA
+   Local
+      master
+      ProjectA/BranchA
+      ProjectB/BranchA
+   tags
+      ProjectA/TagA
+      ProjectB/TagA
+   Working Directory
+      ProjectA/<Code>
+      ProjectB/<Code>
+```
+
 #Links:
 http://svnbook.red-bean.com/nightly/en/svn.reposadmin.planning.html#svn.reposadmin.projects.chooselayout
 
