@@ -1,12 +1,14 @@
 # SVN to GIT Scripts
 
-These scripts are to support a migration from SVN to GIT. They pull a single SVN repository with multiple modules and individual stdlayout under each module. It then combines them into a single repository based on the project file you give it.
+These scripts were made to support a Mass Migration from SVN to GIT. They pull a single SVN repository with multiple modules and individual stdlayout under each module. It then combines them into a single repository based on the project file you give it.
 
-This was made to support a Mass Migration effort
+While these scripts work for our situations, use at your own risk as with all migrations TEST TEST TEST!
+
 ##Prerequisites
 * BASH
 * cygwin or linux (tested on both)
 * SVN (1.8+)installed and on the system path
+* SVN Server (1.6+)
 * GIT (2.1.4+) installed and on the system path
 * SVNRepository credentials saved locally (otherwise it will ask you to login if authentication is required).
 * Enough HD space for the repositories (+3X their size)
@@ -26,14 +28,15 @@ This was made to support a Mass Migration effort
 ##Layouts supported:
 servername/reponame/modulename/stdlayout
 ```
-ProjectA
-   trunk
-   branches
-   tags
-ProjectB
-   trunk
-   branches
-   tags
+RepoA
+   ProjectA
+      trunk
+      branches
+      tags
+   ProjectB
+      trunk
+      branches
+      tags
 ```
 #Links:
 http://svnbook.red-bean.com/nightly/en/svn.reposadmin.planning.html#svn.reposadmin.projects.chooselayout
