@@ -12,6 +12,7 @@ gitRepoName=$1
 projectFile=$2
 configFile="config.properties"
 
+
 projectListArray=()
 badProjectListArray=()
 
@@ -113,8 +114,8 @@ executeRepositoryMerge() {
 
 arrayContains () {
   local e
-  for e in "${@:2}"; do [[ "$e" == "$1" ]] && return 0; done
-  return 1
+  for e in "${@:2}"; do [[ "$e" == "$1" ]] && return 1; done
+  return 0
 }
 
 cd ~
@@ -182,12 +183,13 @@ fi
 for e in "${projectListArray[@]}"
 do
     echo "$e"
+	echo "${badProjectListArray[@]}"
 	arrayContains "$e" "${badProjectListArray[@]}"
 	if [ $? -ne 0 ]; then
 		echo "Project $e was in the failure list, ignoring it and continuing with the next one."
 		continue
 	fi
-	executeRepositoryConversion $e $gitRepoName 2>&1 | tee -a ~/RC_$e.log
+	executeRepositoryMerge $e $gitRepoName 2>&1 | tee -a ~/RC_$e.log
 done
 
 cd ~/$gitRepoName
@@ -199,8 +201,7 @@ cp -Rf .git/refs/remotes/origin/tags/* .git/refs/tags/
 rm -Rf .git/refs/remotes/origin/tags
 cp -Rf .git/refs/remotes/* .git/refs/heads/
 if [ $? -ne 0 ]; then
-	echo "no branches/tags or trunk were found in $gitRepoName ?"
-	exit 1
+	echo "no branches/tags or trunk were found in $gitRepoName ? Assuming original didn't have any"
 fi
 rm -Rf .git/refs/remotes
 
@@ -208,7 +209,7 @@ cd ~/$gitRepoName
 for e in "${projectListArray[@]}"
 do
     echo "$e"
-	arrayContains "$e" "${badProjectListArray[@]}"
+	echo "${badProjectListArray[@]}"
 	if [ $? -ne 0 ]; then
 		echo "Project $e was in the failure list, ignoring it and continuing with the next one."
 		continue
