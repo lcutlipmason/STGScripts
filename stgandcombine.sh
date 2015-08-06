@@ -1,9 +1,16 @@
 #!/bin/bash
 
 #Config files.
+if [ $# -lt 2 ]; then
+  echo 1>&2 "$0: not enough arguments (need both arguments: CombinedGITRepoName ProjectFile)"
+  exit 2
+elif [ $# -gt 2 ]; then
+  echo 1>&2 "$0: too many arguments (need both arguments: CombinedGITRepoName ProjectFile)"
+  exit 2
+fi
+gitRepoName=$1
 projectFile=$2
 configFile="config.properties"
-gitRepoName=$1
 
 projectListArray=()
 badProjectListArray=()
