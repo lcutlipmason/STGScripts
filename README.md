@@ -2,6 +2,8 @@
 
 These scripts were made to support a Mass Migration from SVN to GIT. They pull a single SVN repository with multiple modules and individual stdlayout under each module. It then combines them into a single repository based on the project file you give it.
 
+This process preserves the entire history of the project, so the history of files/folders/branches/tags are all combined and retained in the new GIT Repo.
+
 While these scripts work for our situations, use at your own risk as with all migrations TEST TEST TEST!
 
 ##Prerequisites
