@@ -3,6 +3,15 @@
 These scripts are to support a migration from SVN to GIT. They pull a single SVN repository with multiple modules and individual stdlayout under each module. It then combines them into a single repository based on the project file you give it.
 
 This was made to support a Mass Migration effort
+##Prerequisites
+* BASH
+* cygwin or linux (tested on both)
+* SVN (1.8+)installed and on the system path
+* GIT (2.1.4+) installed and on the system path
+* SVNRepository credentials saved locally (otherwise it will ask you to login if authentication is required).
+* Enough HD space for the repositories (+3X their size)
+* A home directory (current scritps are defaulted to the current user home dir)
+* Patience and Knowledge
 
 ##Files:
 * svnauthors.sh
