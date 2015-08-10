@@ -1,8 +1,8 @@
 # SVN to GIT Scripts
 
-These scripts were made to support a Mass Migration from SVN to GIT. They pull a single SVN repository with multiple modules and individual stdlayout under each module. It then combines them into a single repository based on the project file you give it.
+These scripts were made to support a Mass Migration from SVN to GIT. They pull a single SVN repository with multiple modules and individual stdlayout under each module. It then combines them into a single repository based on the project file you give it (under /ModuleName).
 
-This process preserves the entire history of the project, so the history of files/folders/branches/tags are all combined and retained in the new GIT Repo.
+This process preserves the entire history of the project, so the history of files/folders/branches/tags are all combined and retained in the new GIT Repo prefixed by the module name it came from.
 
 While these scripts work for our situations, use at your own risk as with all migrations TEST TEST TEST!
 
@@ -72,6 +72,14 @@ RepoA
  * from command line "stgandcombine.sh [gitrepositoryname] [projects.txt]"
  * Example: "./stgandcombine.sh gitrepo1 projects.txt"
 5. Push the GIT repo to your GIT server
+6. 
+
+#Recomendations:
+* Before Migration: 
+ * Always clean out your SVN repo of branches that were never commited to.
+ * Delete irelevant SVN TAGS.
+* Random Notes:
+ * In SVN if you don't tell it to merge history with the merges then you should of! Otherwise history in branches will be lost when you delete a branch.
 
 #Links:
 * SVN Repo Layouts: http://svnbook.red-bean.com/nightly/en/svn.reposadmin.planning.html#svn.reposadmin.projects.chooselayout
