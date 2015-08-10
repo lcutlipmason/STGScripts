@@ -57,9 +57,9 @@ RepoA
 ```
 
 #Links:
-SVN Repo Layouts: http://svnbook.red-bean.com/nightly/en/svn.reposadmin.planning.html#svn.reposadmin.projects.chooselayout
-Cygwin: https://cygwin.com/install.html
-Cygwin w/SVN: https://ist.berkeley.edu/as-ag/tools/howto/cygwin.html
-Cygwin w/Git: http://www.celinio.net/techblog/?p=818
+* SVN Repo Layouts: http://svnbook.red-bean.com/nightly/en/svn.reposadmin.planning.html#svn.reposadmin.projects.chooselayout
+* Cygwin: https://cygwin.com/install.html
+* Cygwin w/SVN: https://ist.berkeley.edu/as-ag/tools/howto/cygwin.html
+* Cygwin w/Git: http://www.celinio.net/techblog/?p=818
 
 Orig Author: Lawrence Cutlip-Mason 7/1/2015
