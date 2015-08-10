@@ -26,6 +26,14 @@ While these scripts work for our situations, use at your own risk as with all mi
  * Heart and soul, this clones the repo from SVN, moves all files to a subfolder (same name as the module) and all successfully migrated repo's are then combined into 1 GIT repo.
  * All traces of the previous link to SVN are removed... THIS IS ONE WAY ONLY (why would you want to go back?).
  * depends on 2 files, the config.properties and your project list, also has 1 input of what you want the combined GIT repository to be named.
+* config.properties
+ * This holds currently only the svnrepo location in it (svnrepo=X)
+* projects.txt
+ * This holds the list of Modules (subdirs under the Repo location) to convert.
+ * See projects.example
+* authors.txt
+ * This is the author list to be used by the git svn command. 
+ * Generate from svnauthors.sh if you don't already have one.
 
 ##Layouts supported:
 ###Layout 1: 
@@ -55,6 +63,15 @@ RepoA
       ProjectA/<Code>
       ProjectB/<Code>
 ```
+
+#Usage:
+1. Generate an authors.txt (svn commiter list) on the projects, if you do not then git svn and the scripts will complain. If you already have one, just name it authors.txt and place it in the same directory with the scripts.
+2. Setup a projects.txt (can name it whatever you want) with a list of projects (see projects.example)
+3. Setup a config.properties with the correct svnrepo=X in it, this should be in the format specified in the config.properties already (1 line only, no spaces)
+4. execute stgandcombine.sh
+ * from command line "stgcombine.sh <gitrepositoryname> <projects.txt>"
+ * Example: "./stgandcombine.sh gitrepo1 projects.txt"
+5. Push the GIT repo to your GIT server
 
 #Links:
 * SVN Repo Layouts: http://svnbook.red-bean.com/nightly/en/svn.reposadmin.planning.html#svn.reposadmin.projects.chooselayout
