@@ -69,7 +69,7 @@ RepoA
 2. Setup a projects.txt (can name it whatever you want) with a list of projects (see projects.example)
 3. Setup a config.properties with the correct svnrepo=X in it, this should be in the format specified in the config.properties already (1 line only, no spaces)
 4. execute stgandcombine.sh
- * from command line "stgcombine.sh <gitrepositoryname> <projects.txt>"
+ * from command line "stgandcombine.sh [gitrepositoryname] [projects.txt]"
  * Example: "./stgandcombine.sh gitrepo1 projects.txt"
 5. Push the GIT repo to your GIT server
 
