@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Stgscripts by DevTechnology</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Stgscripts</h1>
+      <h2 class="project-tagline">SVN to GIT Scripts</h2>
+      <a href="https://github.com/DevTechnology/STGScripts" class="btn">View on GitHub</a>
+      <a href="https://github.com/DevTechnology/STGScripts/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/DevTechnology/STGScripts/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="svn-to-git-scripts" class="anchor" href="#svn-to-git-scripts" aria-hidden="true"><span class="octicon octicon-link"></span></a>SVN to GIT Scripts</h1>
+
+<p>These scripts were made to support a Mass Migration from SVN to GIT. They pull a single SVN repository with multiple modules and individual stdlayout under each module. It then combines them into a single repository based on the project file you give it (under /ModuleName).</p>
+
+<p>This process preserves the entire history of the project, so the history of files/folders/branches/tags are all combined and retained in the new GIT Repo prefixed by the module name it came from.</p>
+
+<p>While these scripts work for our situations, use at your own risk as with all migrations TEST TEST TEST!</p>
+
+<h2>
+<a id="prerequisites" class="anchor" href="#prerequisites" aria-hidden="true"><span class="octicon octicon-link"></span></a>Prerequisites</h2>
+
+<ul>
+<li>cygwin or linux (tested on both)</li>
+<li>BASH</li>
+<li>SVN (1.8+)installed and on the system path</li>
+<li>SVN Server (1.6+)</li>
+<li>GIT (2.1.4+) installed and on the system path</li>
+<li>SVNRepository credentials saved locally (otherwise it will ask you to login if authentication is required).</li>
+<li>Enough HD space for the repositories (+3X their size)</li>
+<li>A home directory (current scritps are defaulted to the current user home dir)</li>
+<li>Patience and Knowledge</li>
+</ul>
+
+<h2>
+<a id="files" class="anchor" href="#files" aria-hidden="true"><span class="octicon octicon-link"></span></a>Files:</h2>
+
+<ul>
+<li>svnauthors.sh
+
+<ul>
+<li>This iterates over all the directories in the current folder and outputs all the SVN Authors to a file. It then sorts that file so only Uniques are left. You must edit the file to put in the correct email for people (or don't if you like them wrong).</li>
+</ul>
+</li>
+<li>svnupgrade.sh
+
+<ul>
+<li>This iterates over all the directories in the current folder and runs the svn upgrade command. This was made because some SVN's I operated on were pretty old and it's important to move them up (locally) so the authors script can run properly.</li>
+</ul>
+</li>
+<li>stgandcombine.sh
+
+<ul>
+<li>Heart and soul, this clones the repo from SVN, moves all files to a subfolder (same name as the module) and all successfully migrated repo's are then combined into 1 GIT repo.</li>
+<li>All traces of the previous link to SVN are removed... THIS IS ONE WAY ONLY (why would you want to go back?).</li>
+<li>depends on 2 files, the config.properties and your project list, also has 1 input of what you want the combined GIT repository to be named.</li>
+</ul>
+</li>
+<li>config.properties
+
+<ul>
+<li>This holds currently only the svnrepo location in it (svnrepo=X)</li>
+</ul>
+</li>
+<li>projects.txt
+
+<ul>
+<li>This holds the list of Modules (subdirs under the Repo location) to convert.</li>
+<li>See projects.example</li>
+</ul>
+</li>
+<li>authors.txt
+
+<ul>
+<li>This is the author list to be used by the git svn command. </li>
+<li>Generate from svnauthors.sh if you don't already have one.</li>
+</ul>
+</li>
+</ul>
+
+<h2>
+<a id="layouts-supported" class="anchor" href="#layouts-supported" aria-hidden="true"><span class="octicon octicon-link"></span></a>Layouts supported:</h2>
+
+<h3>
+<a id="layout-1" class="anchor" href="#layout-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Layout 1:</h3>
+
+<ul>
+<li>SVN: servername/reponame/modulename/stdlayout</li>
+</ul>
+
+<pre><code>RepoA
+   ProjectA
+      trunk
+      branches
+      tags
+   ProjectB
+      trunk
+      branches
+      tags
+</code></pre>
+
+<ul>
+<li>GIT: /reponame/(module1/2/3)</li>
+</ul>
+
+<pre><code>RepoA
+   Local
+      master
+      ProjectA/BranchA
+      ProjectB/BranchA
+   tags
+      ProjectA/TagA
+      ProjectB/TagA
+   Working Directory
+      ProjectA/&lt;Code&gt;
+      ProjectB/&lt;Code&gt;
+</code></pre>
+
+<h1>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage:</h1>
+
+<ol>
+<li>Generate an authors.txt (svn commiter list) on the projects, if you do not then git svn and the scripts will complain. If you already have one, just name it authors.txt and place it in the same directory with the scripts.</li>
+<li>Setup a projects.txt (can name it whatever you want) with a list of projects (see projects.example)</li>
+<li>Setup a config.properties with the correct svnrepo=X in it, this should be in the format specified in the config.properties already (1 line only, no spaces)</li>
+<li>execute stgandcombine.sh
+
+<ul>
+<li>from command line "stgandcombine.sh [gitrepositoryname] [projects.txt]"</li>
+<li>Example: "./stgandcombine.sh gitrepo1 projects.txt"</li>
+</ul>
+</li>
+<li>Push the GIT repo to your GIT server</li>
+<li>
+</ol>
+
+<h1>
+<a id="recomendations" class="anchor" href="#recomendations" aria-hidden="true"><span class="octicon octicon-link"></span></a>Recomendations:</h1>
+
+<ul>
+<li>Before Migration: 
+
+<ul>
+<li>Always clean out your SVN repo of branches that were never commited to.</li>
+<li>Delete irelevant SVN TAGS.</li>
+</ul>
+</li>
+<li>Random Notes:
+
+<ul>
+<li>In SVN if you don't tell it to merge history with the merges then you should of! Otherwise history in branches will be lost when you delete a branch.</li>
+</ul>
+</li>
+</ul>
+
+<h1>
+<a id="links" class="anchor" href="#links" aria-hidden="true"><span class="octicon octicon-link"></span></a>Links:</h1>
+
+<ul>
+<li>SVN Repo Layouts: <a href="http://svnbook.red-bean.com/nightly/en/svn.reposadmin.planning.html#svn.reposadmin.projects.chooselayout">http://svnbook.red-bean.com/nightly/en/svn.reposadmin.planning.html#svn.reposadmin.projects.chooselayout</a>
+</li>
+<li>Cygwin: <a href="https://cygwin.com/install.html">https://cygwin.com/install.html</a>
+</li>
+<li>Cygwin w/SVN: <a href="https://ist.berkeley.edu/as-ag/tools/howto/cygwin.html">https://ist.berkeley.edu/as-ag/tools/howto/cygwin.html</a>
+</li>
+<li>Cygwin w/Git: <a href="http://www.celinio.net/techblog/?p=818">http://www.celinio.net/techblog/?p=818</a>
+</li>
+</ul>
+
+<p>Orig Author: Lawrence Cutlip-Mason 7/1/2015</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/DevTechnology/STGScripts">Stgscripts</a> is maintained by <a href="https://github.com/DevTechnology">DevTechnology</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
