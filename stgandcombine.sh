@@ -47,7 +47,7 @@ projectError() {
 # @param projectName (1)
 executeRepositoryConversion() {
 	echo "Clone the Repo:"
-	git svn clone $svnrepo$e --no-metadata -A authors.txt --stdlayout ~/$e
+	git svn clone $svnrepo$1 --no-metadata -A authors.txt --stdlayout ~/$1
 	if [ $? -ne 0 ]; then
 		echo "git svn clone failed?"
 		return 1
