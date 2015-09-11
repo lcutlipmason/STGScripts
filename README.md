@@ -12,6 +12,7 @@ While these scripts work for our situations, use at your own risk as with all mi
 * SVN (1.8+)installed and on the system path
 * SVN Server (1.6+)
 * GIT (2.1.4+) installed and on the system path
+* GIT SVN (2.1.4+) installed and on the system path. On some Linux distributions it is not installed with git.
 * SVNRepository credentials saved locally (otherwise it will ask you to login if authentication is required).
 * Enough HD space for the repositories (+3X their size)
 * A home directory (current scritps are defaulted to the current user home dir)
